@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './style.css';
 
-const baseURL = import.meta.env.VITE_ENDPOINT;
+const baseURL = import.meta.env.FRONTEND_ENDPOINT;
 
 const getWeatherFromApi = async () => {
   try {

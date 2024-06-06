@@ -11,4 +11,5 @@ export default defineConfig({
     port: process.env.PORT || 8000,
   },
   envDir: '../',
+  envPrefix: 'FRONTEND_',
 });
