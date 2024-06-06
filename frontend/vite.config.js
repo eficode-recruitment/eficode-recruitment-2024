@@ -10,4 +10,6 @@ export default defineConfig({
     host: process.env.HOST || '0.0.0.0',
     port: process.env.PORT || 8000,
   },
+  envDir: '../',
+  envPrefix: 'FRONTEND_',
 });
