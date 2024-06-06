@@ -9,8 +9,8 @@
   "author": "Marko Klemetti <marko.klemetti@gmail.com>",
   "license": "UNLICENSED",
   "engines": {
-    "node": "14.21.3",
-    "npm": "6.14.18"
+    "node": "20.14.0",
+    "npm": "10.7.0"
   },
   "scripts": {
     "build": "vite build",
