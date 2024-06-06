@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './style.css';
 
-const baseURL = process.env.ENDPOINT;
+const baseURL = import.meta.env.VITE_ENDPOINT;
 
 const getWeatherFromApi = async () => {
   try {
@@ -19,13 +20,13 @@ class Weather extends React.Component {
     super(props);
 
     this.state = {
-      icon: "",
+      icon: '',
     };
   }
 
   async componentDidMount() {
     const weather = await getWeatherFromApi();
-    this.setState({icon: weather.icon.slice(0, -1)});
+    this.setState({ icon: weather.icon.slice(0, -1) });
   }
 
   render() {
@@ -41,5 +42,5 @@ class Weather extends React.Component {
 
 ReactDOM.render(
   <Weather />,
-  document.getElementById('app')
+  document.getElementById('app'),
 );
