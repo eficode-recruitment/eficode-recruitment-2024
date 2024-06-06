@@ -13,7 +13,9 @@
     "npm": "6.14.18"
   },
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --config webpack.config.js --progress --inline --colors",
+    "build": "vite build",
+    "start": "vite",
+    "preview": "vite preview",
     "lint": "node_modules/.bin/eslint --ext .js --ext .jsx ."
   },
   "dependencies": {
@@ -26,6 +28,7 @@
     "@babel/polyfill": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
+    "@vitejs/plugin-react": "^4.3.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "eslint": "^7.8.1",
@@ -35,6 +38,7 @@
     "eslint-plugin-react": "^7.20.6",
     "html-webpack-plugin": "^4.4.1",
     "transfer-webpack-plugin": "^0.1.4",
+    "vite": "^5.2.12",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
