@@ -21,6 +21,11 @@ resource "google_compute_network" "vpc_network" {
 resource "google_compute_instance" "vm_instance" {
   name         = "eficode-vm"
   machine_type = "e2-micro"
+  tags         = ["ssh"]
+
+  metadata = {
+    ssh-keys = "kubakazik611@gmail.com:${file("./id_rsa_internship.pub")}"
+  }
 
   boot_disk {
     initialize_params {
@@ -35,5 +40,19 @@ resource "google_compute_instance" "vm_instance" {
       // Give the VM an external IP address
     }
   }
+}
+
+resource "google_compute_firewall" "firewall-allow-ssh" {
+  provider = google
+  name     = "firewall-allow-ssh"
+  network  = google_compute_network.vpc_network.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["ssh"]
 }
 
