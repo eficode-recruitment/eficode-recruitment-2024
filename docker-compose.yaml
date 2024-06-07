@@ -11,8 +11,11 @@ services:
       - APPID=${OPENWEATHER_API_KEY}
       - MAP_ENDPOINT=${OPENWEATHER_MAP_ENDPOINT}
       - TARGET_CITY=${OPENWEATHER_TARGET_CITY}
-    volumes:
-      - ./backend:/app
+    develop:
+      watch:
+        - path: backend/
+          target: /usr/src/app/
+          action: rebuild
 
   frontend:
     build:
@@ -35,9 +38,9 @@ services:
         - path: frontend/package.json
           action: rebuild
 
-  nginx:
-    build:
-      context: ./
-      dockerfile: ./frontend/docker/prod/Dockerfile
-    ports:
-      - 8000:80
+#  nginx:
+#    build:
+#      context: ./
+#      dockerfile: ./frontend/docker/prod/Dockerfile
+#    ports:
+#      - 8000:80
