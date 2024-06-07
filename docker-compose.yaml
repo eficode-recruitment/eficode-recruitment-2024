@@ -3,7 +3,7 @@ services:
     build: ./backend
     init: true
     ports:
-      - ${BACKEND_PORT}:9000
+      - ${BACKEND_PORT}:${BACKEND_PORT}
     env_file:
       - .env
     environment:
@@ -20,7 +20,7 @@ services:
       dockerfile: ./frontend/docker/dev/Dockerfile
     init: true
     ports:
-      - ${FRONTEND_PORT}:8000
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
     env_file:
       - .env
     environment:
