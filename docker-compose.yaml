@@ -14,6 +14,19 @@ services:
     volumes:
       - ./backend:/app
 
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./frontend/docker/dev/Dockerfile
+    ports:
+      - ${FRONTEND_PORT}:8000
+    env_file:
+      - .env
+    environment:
+      - PORT=${FRONTEND_PORT}
+      - HOST=${FRONTEND_HOST}
+      - BACKEND_URL=${FRONTEND_ENDPOINT}
+
   nginx:
     build:
       context: ./
