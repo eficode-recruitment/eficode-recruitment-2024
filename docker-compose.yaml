@@ -28,9 +28,8 @@ services:
       - BACKEND_URL=${FRONTEND_ENDPOINT}
     volumes:
       - ./.env:/usr/src/.env
-      - ./frontend/src:/usr/src/app/src
-      - ./frontend/public:/usr/src/app/public
-      - ./frontend/index.html:/usr/src/app/index.html
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
 
   nginx:
     build:
