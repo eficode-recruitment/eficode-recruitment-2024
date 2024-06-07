@@ -26,6 +26,11 @@ services:
       - PORT=${FRONTEND_PORT}
       - HOST=${FRONTEND_HOST}
       - BACKEND_URL=${FRONTEND_ENDPOINT}
+    volumes:
+      - ./.env:/usr/src/.env
+      - ./frontend/src:/usr/src/app/src
+      - ./frontend/public:/usr/src/app/public
+      - ./frontend/index.html:/usr/src/app/index.html
 
   nginx:
     build:
