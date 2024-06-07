@@ -8,9 +8,10 @@ terraform {
 }
 
 provider "google" {
-  project = "eficode-recruitment-2024"
-  region  = "europe-central2" # Europe - Warsaw
-  zone    = "europe-central2-a"
+  credentials = file(var.gcp_credentials_file)
+  project     = var.gcp_project_id
+  region      = var.gcp_region
+  zone        = var.gcp_zone
 }
 
 resource "google_compute_network" "vpc_network" {
