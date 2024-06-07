@@ -13,3 +13,31 @@ services:
       - TARGET_CITY=${OPENWEATHER_TARGET_CITY}
     volumes:
       - ./backend:/app
+
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./frontend/docker/dev/Dockerfile
+    init: true
+    ports:
+      - ${FRONTEND_PORT}:8000
+    env_file:
+      - .env
+    environment:
+      - PORT=${FRONTEND_PORT}
+      - HOST=${FRONTEND_HOST}
+      - BACKEND_URL=${FRONTEND_ENDPOINT}
+    develop:
+      watch:
+        - path: frontend/
+          target: /usr/src/app/
+          action: sync
+        - path: frontend/package.json
+          action: rebuild
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./frontend/docker/prod/Dockerfile
+    ports:
+      - 8000:80
