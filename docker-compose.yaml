@@ -18,6 +18,7 @@ services:
     build:
       context: ./
       dockerfile: ./frontend/docker/dev/Dockerfile
+    init: true
     ports:
       - ${FRONTEND_PORT}:8000
     env_file:
