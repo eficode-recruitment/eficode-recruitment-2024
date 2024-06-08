@@ -5,3 +5,8 @@ gcp_project_id       = "GCP_PROJECT_ID"
 gcp_region           = "europe-central2"
 gcp_zone             = "europe-central2-a"
 gcp_credentials_file = "~/.config/gcloud/application_default_credentials.json"
+
+## VM configuration
+gce_vm_type = "e2-micro"
+gce_ssh_user = "eficode"
+gce_ssh_pub_key = "id_rsa_internship.pub"

@@ -20,11 +20,11 @@ resource "google_compute_network" "vpc_network" {
 
 resource "google_compute_instance" "vm_instance" {
   name         = "eficode-vm"
-  machine_type = "e2-micro"
+  machine_type = var.gce_vm_type
   tags         = ["ssh"]
 
   metadata = {
-    ssh-keys = "kubakazik611@gmail.com:${file("./id_rsa_internship.pub")}"
+    ssh-keys  = "${var.gce_ssh_user}:${file(var.gce_ssh_pub_key)}"
   }
 
   boot_disk {
