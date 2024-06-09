@@ -1,0 +1,9 @@
+---
+plugin: gcp_compute
+projects:
+  - eficode-recruitment-2024
+auth_kind: serviceaccount
+service_account_file: inventory/ansible-sa-key.json
+keyed_groups:
+  - default_value: gce
+    separator: ''

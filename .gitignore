@@ -1,3 +1,4 @@
+/ansible/inventory/*-key.json
 docker-compose.override.yaml
 
 # Local .terraform directories
