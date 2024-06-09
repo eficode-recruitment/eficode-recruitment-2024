@@ -6,3 +6,4 @@ auth_kind: serviceaccount
 service_account_file: inventory/service-account.json
 keyed_groups:
   - default_value: gce
+    separator: ''
