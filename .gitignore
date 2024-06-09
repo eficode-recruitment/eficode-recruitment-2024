@@ -1,3 +1,4 @@
+service-account.json
 docker-compose.override.yaml
 
 # Local .terraform directories
