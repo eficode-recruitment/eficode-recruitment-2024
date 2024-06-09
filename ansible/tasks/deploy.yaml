@@ -10,17 +10,13 @@
 
     - name: Copy the application files
       ansible.builtin.copy:
-        src: "{{ playbook_dir | dirname | dirname }}/{{ item.src }}"
-        dest: "{{ item.dest }}"
+        src: "{{ playbook_dir | dirname | dirname }}/{{ item }}"
+        dest: "{{ ansible_env.HOME }}/app"
       loop:
-        - src: backend
-          dest: "{{ ansible_env.HOME }}/app"
-        - src: frontend
-          dest: "{{ ansible_env.HOME }}/app"
-        - src: docker-compose.yaml
-          dest: "{{ ansible_env.HOME }}/app"
-        - src: .env
-          dest: "{{ ansible_env.HOME }}/app"
+        - backend
+        - frontend
+        - docker-compose.yaml
+        - .env
 
     - name: Run `docker-compose up`
       community.docker.docker_compose_v2:
