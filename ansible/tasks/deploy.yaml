@@ -1,0 +1,33 @@
+- name: Deploy the application
+  hosts: gce
+
+  tasks:
+    - name: Create the application directory
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/app"
+        state: directory
+        mode: '0755'
+
+    - name: Copy the application files
+      ansible.builtin.copy:
+        src: "{{ playbook_dir | dirname | dirname }}/{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop:
+        - src: backend
+          dest: "{{ ansible_env.HOME }}/app"
+        - src: frontend
+          dest: "{{ ansible_env.HOME }}/app"
+        - src: docker-compose.yaml
+          dest: "{{ ansible_env.HOME }}/app"
+        - src: .env
+          dest: "{{ ansible_env.HOME }}/app"
+
+    - name: Run `docker-compose up`
+      community.docker.docker_compose_v2:
+        project_src: "{{ ansible_env.HOME }}/app"
+        state: present
+      register: output
+
+    - name: Show results
+      ansible.builtin.debug:
+        var: output
