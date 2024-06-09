@@ -1,0 +1,24 @@
+services:
+  backend:
+    extends:
+      file: docker-compose.build.yaml
+      service: backend
+    init: true
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    env_file:
+      - .env
+    environment:
+      - PORT=${BACKEND_PORT}
+      - APPID=${OPENWEATHER_API_KEY}
+      - MAP_ENDPOINT=${OPENWEATHER_MAP_ENDPOINT}
+      - TARGET_CITY=${OPENWEATHER_TARGET_CITY}
+
+  frontend:
+    extends:
+      file: docker-compose.build.yaml
+      service: backend
+    init: true
+    ports:
+      - 80:80
+      - 443:443

@@ -1,5 +1,6 @@
 services:
   backend:
+    image: europe-central2-docker.pkg.dev/eficode-recruitment-2024/containers/backend:latest
     build: ./backend
     init: true
     ports:
@@ -11,29 +12,19 @@ services:
       - APPID=${OPENWEATHER_API_KEY}
       - MAP_ENDPOINT=${OPENWEATHER_MAP_ENDPOINT}
       - TARGET_CITY=${OPENWEATHER_TARGET_CITY}
-    develop:
-      watch:
-        - path: backend/
-          target: /usr/src/app/
-          action: rebuild
 
   frontend:
+    image: europe-central2-docker.pkg.dev/eficode-recruitment-2024/containers/frontend:latest
     build:
       context: ./
-      dockerfile: ./frontend/docker/dev/Dockerfile
+      dockerfile: ./frontend/docker/prod/Dockerfile
     init: true
     ports:
-      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+      - 80:80
+      - 443:443
     env_file:
       - .env
     environment:
       - PORT=${FRONTEND_PORT}
       - HOST=${FRONTEND_HOST}
       - BACKEND_URL=${FRONTEND_ENDPOINT}
-    develop:
-      watch:
-        - path: frontend/
-          target: /usr/src/app/
-          action: sync
-        - path: frontend/package.json
-          action: rebuild
