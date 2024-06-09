@@ -1,7 +1,15 @@
+---
+# Deploy the application to the GCE instance
+
 - name: Deploy the application
   hosts: gce
 
   tasks:
+    - name: Install docker
+      ansible.builtin.include_role:
+        name: docker
+      when: (install_docker | default(true)) | bool == true
+
     - name: Create the application directory
       ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/app"
