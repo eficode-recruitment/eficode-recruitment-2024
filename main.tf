@@ -102,3 +102,9 @@ resource "google_artifact_registry_repository" "artifactory" {
   description   = "Weather App Docker repository"
   format        = "DOCKER"
 }
+
+
+output "webserver_url" {
+  description = "The URL of the webserver"
+  value       = join("", ["http://", google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip])
+}
