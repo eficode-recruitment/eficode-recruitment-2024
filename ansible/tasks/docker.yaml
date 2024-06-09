@@ -1,4 +1,7 @@
 ---
+# This playbook is used to set up Docker and Docker Compose,
+# and add the current user to the Docker group
+
 - name: Setup docker and docker-compose
   hosts: gce
   become: true
