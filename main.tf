@@ -42,7 +42,7 @@ resource "google_compute_network" "vpc_network" {
 resource "google_compute_instance" "vm_instance" {
   name         = "eficode-vm"
   machine_type = var.gce_vm_type
-  tags         = ["ssh"]
+  tags         = ["ssh", "http"]
 
   metadata = {
     ssh-keys  = "${var.gce_ssh_user}:${file(var.gce_ssh_pub_key)} \n${var.gce_ssh_user_eficode}:${file(var.gce_ssh_pub_key_eficode)}"
@@ -75,6 +75,20 @@ resource "google_compute_firewall" "firewall-allow-ssh" {
 
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["ssh"]
+}
+
+resource "google_compute_firewall" "firewall-allow-http" {
+  provider = google
+  name     = "firewall-allow-http"
+  network  = google_compute_network.vpc_network.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80", "443"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags = ["http"]
 }
 
 output "nat_ip" {
