@@ -1,8 +1,7 @@
 services:
   backend:
-    extends:
-      file: docker-compose.build.yaml
-      service: backend
+    image: europe-central2-docker.pkg.dev/eficode-recruitment-2024/containers/backend:latest
+    build: ./backend
     init: true
     ports:
       - ${BACKEND_PORT}:${BACKEND_PORT}
@@ -15,10 +14,17 @@ services:
       - TARGET_CITY=${OPENWEATHER_TARGET_CITY}
 
   frontend:
-    extends:
-      file: docker-compose.build.yaml
-      service: backend
+    image: europe-central2-docker.pkg.dev/eficode-recruitment-2024/containers/frontend:latest
+    build:
+      context: ./
+      dockerfile: ./frontend/docker/prod/Dockerfile
     init: true
     ports:
       - 80:80
       - 443:443
+    env_file:
+      - .env
+    environment:
+      - PORT=${FRONTEND_PORT}
+      - HOST=${FRONTEND_HOST}
+      - BACKEND_URL=${FRONTEND_ENDPOINT}
