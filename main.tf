@@ -95,3 +95,10 @@ output "nat_ip" {
   description = "The public IP of the instance"
   value = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
 }
+
+resource "google_artifact_registry_repository" "artifactory" {
+  location      = var.gcp_region
+  repository_id = "containers"
+  description   = "Weather App Docker repository"
+  format        = "DOCKER"
+}
