@@ -9,6 +9,6 @@ gcp_credentials_file = "~/.config/gcloud/application_default_credentials.json"
 ## VM configuration
 gce_vm_type             = "e2-micro"
 gce_ssh_user            = "user"
-gce_ssh_pub_key         = "id_rsa_gce.pub"
+gce_ssh_pub_key         = "../id_rsa_gce.pub"
 gce_ssh_user_eficode    = "root"
-gce_ssh_pub_key_eficode = "id_rsa_internship.pub"
+gce_ssh_pub_key_eficode = "../id_rsa_internship.pub"
