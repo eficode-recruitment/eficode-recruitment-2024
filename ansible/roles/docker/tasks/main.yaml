@@ -70,6 +70,10 @@
     groups: docker
     append: true
 
+- name: Reset ssh connection to apply group changes
+  ansible.builtin.meta:
+    reset_connection
+
 - name: Verify Docker installation
   ansible.builtin.command: docker --version
   register: docker_version
