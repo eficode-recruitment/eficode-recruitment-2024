@@ -52,6 +52,7 @@ Further possible improvements:
 - (terraform) Create Docker artifact registry,
 
 Further possible improvements:
+- (gcp) Don't grant `roles/artifactregistry.reader` to `allUsers` in the Artifact Registry (that was a dirty hack to make things work, sorry),
 - (terraform) Use [remote-exec provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec) to install Docker on the VM (seems interesting, might be bad practice though),
 - (terraform, ansible) Use Ansible Vault to store service account key,
 - (terraform, gcp) Use [storage bucket](https://cloud.google.com/docs/terraform/resource-management/store-state) to centralize Terraform state - useful for working in a team,
@@ -69,7 +70,8 @@ Further possible improvements:
 - (playbook) Deploy app through `docker-compose.prod.yaml`,
 
 Further possible improvements:
-- (ansible) Use vault to store secrets, such as private keys, or .env files with API keys
+- (ansible) Use vault to store secrets, such as private keys, or .env files with API keys,
+- (gcp, ansible) Authenticate with GCP on target machine to pull Docker images from Artifact Registry,
 
 ---
 
