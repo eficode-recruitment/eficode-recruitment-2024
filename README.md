@@ -4,6 +4,9 @@ The original task description can be found in [TASK.md](TASK.md).
 
 
 ## What has been done
+<details>
+  <summary>Toggle expand</summary>
+  
 In this section, I will describe what has been done in this repository. If there was something I spotted that could be done, but I didn't have time to do it, I will mention it in the "Further possible improvements" section.
 
 > I tracked my work using Linear, in which I've created issues/tickets. If you want to see how I describe things to do, take a look at the expandable commend from the bot that liked each issue in PRs.
@@ -74,7 +77,7 @@ Further possible improvements:
 - (gcp, ansible) Authenticate with GCP on target machine to pull Docker images from Artifact Registry,
 
 ---
-
+</details>
 
 ## How to run
 Before starting, you need to:
