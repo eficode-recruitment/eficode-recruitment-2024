@@ -179,6 +179,8 @@ We use Terraform to provision infrastructure. It will set up:
 
 To provision all above, use:
 ```bash
+# From the repository root
+cd terraform
 terraform init
 terraform apply
 ```
@@ -193,6 +195,7 @@ A note about provisioned users:
 To avoid running a build process on the VM, we will build the images locally and push them to GCP Artifact Registry.
 To do so, run:
 ```bash
+# From the repository root
 docker-compose -f docker-compose.prod.yaml build
 docker-compose -f docker-compose.prod.yaml push
 ```
@@ -202,6 +205,7 @@ This will push the images to the Artifact Registry, where they will be pulled by
 ### Run deployment with Ansible
 To deploy the app, run:
 ```bash
+# From the repository root
 cd ansible
 ansible-playbook tasks/deploy.yaml
 ```
@@ -219,5 +223,6 @@ ansible-playbook tasks/deploy.yaml -e "install_docker=false"
 After the deployment process is finished, you can access the app by visiting the VM's IP address in your browser.
 The IP address can be found in the Terraform output or in the GCP console.
 ```bash
+# From <repo_root>/terraform
 terraform output
 ```
