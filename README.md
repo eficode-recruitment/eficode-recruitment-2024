@@ -150,16 +150,16 @@ gcloud auth configure-docker europe-central2-docker.pkg.dev
 
 Next, copy variable files:
 ```bash
-cp terraform.example.tfvars terraform.tfvars
+cp terraform/terraform.example.tfvars terraform/terraform.tfvars
 cp .env.example .env
 ```
 and fill-in/replace:
-- `terraform.tfvars`
+- `terraform/terraform.tfvars`
   - replace `GCP_PROJECT_ID` your GCP Project ID (found in the [project dashboard](https://console.cloud.google.com/projectselector2/home/dashboard))
   - path to credentials file (`gcp_credentials_file`), if it's location doesn't match the one in config,
 - `.env`:
   - paste your `OPENWEATHER_API_KEY` as-is,
-- `/ansible/inventory/gcp.yaml`:
+- `ansible/inventory/gcp.yaml`:
   - replace `gcp_project_id` with your GCP Project ID. 
 
 Next, configure the SSH private key location (used by Ansible and Terraform).
