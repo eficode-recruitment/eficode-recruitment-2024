@@ -130,8 +130,12 @@ Before beginning the deployment process, you need to:
 
 After the above is done, authenticate yourself with gcloud CLI:
 ```bash
+gcloud auth login
+gcloud config set project <GCP_PROJECT_ID>
 gcloud auth application-default login
 ```
+> Substitute `<GCP_PROJECT_ID>` with your GCP Project ID.
+
 After authenticating a file location of your credentials will be shown in the console.
 
 If you are building the Docker images locally, you also need to authenticate with GCP Artifact Registry:
