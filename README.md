@@ -214,3 +214,6 @@ ansible-playbook tasks/deploy.yaml -e "install_docker=false"
 ## See the app live
 After the deployment process is finished, you can access the app by visiting the VM's IP address in your browser.
 The IP address can be found in the Terraform output or in the GCP console.
+```bash
+terraform output
+```
