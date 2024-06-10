@@ -63,7 +63,6 @@ Further possible improvements:
 - (terraform, gce) Tighten ranges of allowed IPs for connecting with SSH,
 - (gcp) Find a role in IAM for a service account, that has fewer permissions than `roles/viewer`,
 - (terraform) Parametrize service account key location,
-- (terraform) Organize a project in a (possibly) better way - break `main.tf` into smaller, more focused parts,
 - (terraform) Kickstart a new GCP project with [project-factory](https://registry.terraform.io/modules/terraform-google-modules/project-factory/google/latest) (would have to revise what it adds besides just the project though)
 
 
