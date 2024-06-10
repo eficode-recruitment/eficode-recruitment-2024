@@ -31,7 +31,7 @@ resource "google_service_account_key" "ansible_sa_key" {
 }
 
 resource "local_file" "service_account_key" {
-  filename = "./ansible/inventory/ansible-sa-key.json"
+  filename = "../ansible/inventory/ansible-sa-key.json"
   content  = base64decode(google_service_account_key.ansible_sa_key.private_key)
 }
 
