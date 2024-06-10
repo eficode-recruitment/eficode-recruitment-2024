@@ -38,7 +38,6 @@ Further possible improvements:
 Further possible improvements:
 - (CI) Add CI pipeline to build docker images and lint the app,
 - (compose) Use [compose secrets](https://docs.docker.com/compose/use-secrets/) to store sensitive data such as OpenWeatherMap API key,
-- (compose) Rethink and test if `.prod` and `.build` cannot be used as one production-only docker file (read more on `pull_policy` too)
 - (prod-frontend) Parametrize backend port for reverse proxy in Caddyfile,
 
 
