@@ -1,0 +1,17 @@
+{
+  auto_https disable_redirects
+}
+
+:443, :80 {
+  encode gzip
+
+	handle /api* {
+		reverse_proxy localhost:9000
+	}
+
+	handle {
+		root * /usr/share/caddy
+		try_files {path} /index.html
+		file_server
+	}
+}

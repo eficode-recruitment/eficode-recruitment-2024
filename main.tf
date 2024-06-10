@@ -15,24 +15,24 @@ provider "google" {
 }
 
 resource "google_service_account" "ansible_sa" {
-  account_id = "ansible-sa"
+  account_id  = "ansible-sa"
   description = "Service account for Ansible"
 }
 
 resource "google_project_iam_member" "ansible_sa_viewer" {
   project = var.gcp_project_id
   role    = "roles/viewer"
-  member = "serviceAccount:${google_service_account.ansible_sa.email}"
+  member  = "serviceAccount:${google_service_account.ansible_sa.email}"
 }
 
 resource "google_service_account_key" "ansible_sa_key" {
   service_account_id = google_service_account.ansible_sa.name
-  public_key_type = "TYPE_X509_PEM_FILE"
+  public_key_type    = "TYPE_X509_PEM_FILE"
 }
 
 resource "local_file" "service_account_key" {
   filename = "./ansible/inventory/ansible-sa-key.json"
-  content = base64decode(google_service_account_key.ansible_sa_key.private_key)
+  content  = base64decode(google_service_account_key.ansible_sa_key.private_key)
 }
 
 resource "google_compute_network" "vpc_network" {
@@ -42,10 +42,10 @@ resource "google_compute_network" "vpc_network" {
 resource "google_compute_instance" "vm_instance" {
   name         = "eficode-vm"
   machine_type = var.gce_vm_type
-  tags         = ["ssh"]
+  tags         = ["ssh", "http"]
 
   metadata = {
-    ssh-keys  = "${var.gce_ssh_user}:${file(var.gce_ssh_pub_key)} \n${var.gce_ssh_user_eficode}:${file(var.gce_ssh_pub_key_eficode)}"
+    ssh-keys = "${var.gce_ssh_user}:${file(var.gce_ssh_pub_key)} \n${var.gce_ssh_user_eficode}:${file(var.gce_ssh_pub_key_eficode)}"
   }
 
   boot_disk {
@@ -77,7 +77,44 @@ resource "google_compute_firewall" "firewall-allow-ssh" {
   target_tags   = ["ssh"]
 }
 
+resource "google_compute_firewall" "firewall-allow-http" {
+  provider = google
+  name     = "firewall-allow-http"
+  network  = google_compute_network.vpc_network.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80", "443"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["http"]
+}
+
 output "nat_ip" {
   description = "The public IP of the instance"
-  value = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
+  value       = google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
+}
+
+resource "google_artifact_registry_repository" "artifactory" {
+  location      = var.gcp_region
+  repository_id = "containers"
+  description   = "Weather App Docker repository"
+  format        = "DOCKER"
+}
+
+resource "google_artifact_registry_repository_iam_binding" "artifactory_iam_binding" {
+  project = google_artifact_registry_repository.artifactory.project
+  location = google_artifact_registry_repository.artifactory.location
+  repository = google_artifact_registry_repository.artifactory.name
+  role = "roles/artifactregistry.reader"
+  members = [
+    "allUsers"
+  ]
+}
+
+
+output "webserver_url" {
+  description = "The URL of the webserver"
+  value       = join("", ["http://", google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip])
 }

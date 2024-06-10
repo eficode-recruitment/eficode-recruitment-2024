@@ -1,0 +1,37 @@
+---
+# Deploy the application to the GCE instance
+
+- name: Deploy the application
+  hosts: gce
+
+  tasks:
+    - name: Install docker
+      ansible.builtin.include_role:
+        name: docker
+      when: (install_docker | default(true)) | bool == true
+
+    - name: Create the application directory
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/app"
+        state: directory
+        mode: '0755'
+
+    - name: Copy the application files
+      ansible.builtin.copy:
+        src: "{{ playbook_dir | dirname | dirname }}/{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop:
+        - src: docker-compose.prod.yaml
+          dest: "{{ ansible_env.HOME }}/app/docker-compose.yaml"
+        - src: .env
+          dest: "{{ ansible_env.HOME }}/app/.env"
+
+    - name: Run `docker-compose up`
+      community.docker.docker_compose_v2:
+        project_src: "{{ ansible_env.HOME }}/app"
+        state: present
+      register: output
+
+    - name: Show results
+      ansible.builtin.debug:
+        var: output

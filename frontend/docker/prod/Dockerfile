@@ -10,14 +10,15 @@ COPY frontend ./
 RUN npm run build
 
 
-FROM nginx:1.26.1
+FROM caddy:2.8.4
 
-COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+COPY --from=build /usr/src/app/dist /usr/share/caddy
+COPY frontend/docker/prod/Caddyfile /etc/caddy/Caddyfile
 
-EXPOSE 80
+EXPOSE 80 443
 
 # Shutdown gracefully on SIGQUIT
 STOPSIGNAL SIGQUIT
 
 # Run nginx in the foreground
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile"]
