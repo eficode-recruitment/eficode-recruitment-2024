@@ -4,8 +4,6 @@ services:
     image: europe-central2-docker.pkg.dev/eficode-recruitment-2024/containers/backend:latest
     build: ./backend
     init: true
-    ports:
-      - ${BACKEND_PORT}:${BACKEND_PORT}
     env_file:
       - .env
     environment:
@@ -23,9 +21,3 @@ services:
     ports:
       - 80:80
       - 443:443
-    env_file:
-      - .env
-    environment:
-      - PORT=${FRONTEND_PORT}
-      - HOST=${FRONTEND_HOST}
-      - BACKEND_URL=${FRONTEND_ENDPOINT}

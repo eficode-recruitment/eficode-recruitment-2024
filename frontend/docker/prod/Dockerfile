@@ -4,10 +4,10 @@ WORKDIR /usr/src/app
 
 COPY frontend/package*.json ./
 RUN npm install
-COPY ./.env ../
 COPY frontend ./
 
-RUN npm run build
+# Sets the environment variable just for the build
+RUN FRONTEND_ENDPOINT=/api npm run build
 
 
 FROM caddy:2.8.4
