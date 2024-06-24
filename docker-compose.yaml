@@ -29,7 +29,7 @@ services:
     environment:
       - PORT=${FRONTEND_PORT}
       - HOST=${FRONTEND_HOST}
-      - BACKEND_URL=${FRONTEND_ENDPOINT}
+      - FRONTEND_ENDPOINT=${FRONTEND_ENDPOINT}
     develop:
       watch:
         - path: frontend/
